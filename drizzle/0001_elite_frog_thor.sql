@@ -1,0 +1,1 @@
+ALTER TABLE "agent_versions" ADD CONSTRAINT "agent_version_unique" UNIQUE("agent_id","version");

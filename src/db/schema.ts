@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
 
-import { pgTable, text, timestamp, boolean, pgEnum,} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, pgEnum, integer , unique} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
  id: text('id').primaryKey(),
@@ -65,6 +65,33 @@ export const agents = pgTable("agents" , {
    updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const agentVersions = pgTable(
+     "agent_versions" ,
+     {
+          id : text("id")
+          .primaryKey()
+          .$defaultFn(() => nanoid()),
+          agentId : text("agent_id")
+          .notNull()
+          .references(() => agents.id,
+          {
+          onDelete : "cascade",
+          }),
+
+          version : integer("version").notNull(),
+          name : text("name").notNull(),
+          instructions : text("instructions").notNull(),
+          createdAt : timestamp("created_at").notNull().defaultNow(),
+     }, 
+     (table) => ({
+          agentVersionUnique : unique(
+               "agent_version_agent_id_version_unique"
+          ).on(
+               table.agentId,
+               table.version,
+          ),
+     }),
+);
 
 export const meetingStatus = pgEnum("meeting_status" , [
 "upcoming",

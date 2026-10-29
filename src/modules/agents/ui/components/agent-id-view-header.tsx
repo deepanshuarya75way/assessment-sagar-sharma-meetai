@@ -43,9 +43,11 @@ export const AgentIdViewHeader = ({
               <Link href="/agents">My Agents</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
+
           <BreadcrumbSeparator className="text-xl font-medium text-foreground [&>svg]:size-4">
             <ChevronRightIcon />
           </BreadcrumbSeparator>
+
           <BreadcrumbItem>
             <BreadcrumbLink
               asChild
@@ -64,11 +66,13 @@ export const AgentIdViewHeader = ({
             <MoreVerticalIcon />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onEdit}>
             <PencilIcon className="size-4" />
             Edit
           </DropdownMenuItem>
+
           <DropdownMenuItem onClick={onRemove}>
             <TrashIcon className="size-4" />
             Delete
